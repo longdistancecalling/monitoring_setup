@@ -1,4 +1,4 @@
-# Monitoring Setup
+# Monitoring-Stack
 
 Kleines Setup zum schnellen Start eines Monitoring-Stacks mit Grafana, Prometheus und node-exporter über Docker Compose.
 
