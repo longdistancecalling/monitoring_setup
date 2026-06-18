@@ -13,7 +13,3 @@ Kleines Setup zum schnellen Start eines Monitoring-Stacks mit Grafana, Prometheu
 - Docker Compose (entweder `docker compose` oder `docker-compose`)
 - Auf Windows: Script mit Git Bash oder WSL ausführen (Script ist ein bash-Skript).
 
-## Schnellstart
-Aus dem Projektordner ausführen:
-```bash
-bash [setup-monitoring-compose.sh](http://_vscodecontentref_/0)
