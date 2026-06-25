@@ -7,7 +7,7 @@ set -euo pipefail
 # Nur Grafana veroeffentlicht einen Port nach aussen (3000).
 # Prometheus und node-exporter sind ausschliesslich intern
 # ueber die Container-Namen erreichbar.
-# ============================================================
+# ================================z============================
 
 CONFIG_DIR="$(pwd)/monitoring-config"
 COMPOSE_FILE="${CONFIG_DIR}/docker-compose.yml"
@@ -15,7 +15,7 @@ PROMETHEUS_FILE="${CONFIG_DIR}/prometheus.yml"
 GRAFANA_PORT="3000"
 
 echo ">>> Pruefe ob Docker installiert ist..."
-if ! command -v docker &> /dev/null; then
+if ! command -v docker > /dev/null 2>&1; then
   echo "Docker ist nicht installiert. Bitte zuerst Docker installieren."
   exit 1
 fi
