@@ -97,7 +97,7 @@ services:
     networks:
       - monitoring
     ports:
-      - "${GRAFANA_PORT}:3000"   # einziger nach aussen freigegebener Port
+      - "${GRAFANA_PORT}:3000"   # only Grafana is exposed to the outside
     volumes:
       - grafana-data:/var/lib/grafana
     depends_on:
