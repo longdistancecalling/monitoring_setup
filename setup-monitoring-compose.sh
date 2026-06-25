@@ -2,11 +2,11 @@
 set -euo pipefail
 
 # ============================================================
-# Monitoring-Stack: Grafana, Prometheus, node-exporter
-# Startet den Stack ueber docker-compose.yml im Netzwerk "monitoring".
-# Nur Grafana veroeffentlicht einen Port nach aussen (3000).
-# Prometheus und node-exporter sind ausschliesslich intern
-# ueber die Container-Namen erreichbar.
+#Monitoring stack: Grafana, Prometheus, node-exporter
+# Starts the stack via docker-compose.yml in the “monitoring” network.
+# Only Grafana exposes a port to the outside (3000).
+# Prometheus and node-exporter are accessible exclusively internally
+# via their container names.
 # ================================z============================
 
 CONFIG_DIR="$(pwd)/monitoring-config"
@@ -14,27 +14,27 @@ COMPOSE_FILE="${CONFIG_DIR}/docker-compose.yml"
 PROMETHEUS_FILE="${CONFIG_DIR}/prometheus.yml"
 GRAFANA_PORT="3000"
 
-echo ">>> Pruefe ob Docker installiert ist..."
+echo ">>> Checking if Docker is installed..."
 if ! command -v docker > /dev/null 2>&1; then
-  echo "Docker ist nicht installiert. Bitte zuerst Docker installieren."
+  echo "Docker is not installed. Please install Docker first."
   exit 1
 fi
 
-echo ">>> Pruefe ob docker compose verfuegbar ist..."
+echo ">>> Checking if Docker Compose is available..."
 if docker compose version &> /dev/null; then
   COMPOSE_CMD="docker compose"
 elif command -v docker-compose &> /dev/null; then
   COMPOSE_CMD="docker-compose"
 else
-  echo "docker compose (bzw. docker-compose) wurde nicht gefunden. Bitte installieren."
+  echo "docker compose (or docker-compose) was not found. Please install first."
   exit 1
 fi
-echo "Verwende: ${COMPOSE_CMD}"
+echo "Using: ${COMPOSE_CMD}"
 
-echo ">>> Erstelle Konfigurationsverzeichnis: ${CONFIG_DIR}"
+echo ">>> Creating configuration directory: ${CONFIG_DIR}"
 mkdir -p "${CONFIG_DIR}"
 
-echo ">>> Erstelle prometheus.yml (Scrape-Konfiguration)..."
+echo ">>> Creating prometheus.yml (Scrape configuration)..."
 cat > "${PROMETHEUS_FILE}" <<EOF
 global:
   scrape_interval: 15s
@@ -49,7 +49,7 @@ scrape_configs:
       - targets: ["node-exporter:9100"]
 EOF
 
-echo ">>> Erstelle docker-compose.yml..."
+echo ">>> Creating docker-compose.yml..."
 cat > "${COMPOSE_FILE}" <<EOF
 version: "3.9"
 
@@ -104,25 +104,25 @@ services:
       - prometheus
 EOF
 
-echo ">>> Starte Monitoring-Stack mit ${COMPOSE_CMD}..."
+echo ">>> Starting monitoring stack with ${COMPOSE_CMD}..."
 cd "${CONFIG_DIR}"
 ${COMPOSE_CMD} up -d
 
 echo ""
 echo "============================================================"
-echo "Fertig!"
-echo "Grafana erreichbar unter: http://localhost:${GRAFANA_PORT}"
-echo "  Standard-Login: admin / admin (wird beim ersten Login geaendert)"
+echo "Done!"
+echo "Grafana accessible at: http://localhost:${GRAFANA_PORT}"
+echo "  Default login: admin / admin (will be changed on first login)"
 echo ""
-echo "Prometheus ist NUR intern im Netzwerk 'monitoring' erreichbar:"
+echo "Prometheus is ONLY accessible internally in the 'monitoring' network:"
 echo "  http://prometheus:9090"
 echo ""
-echo "node-exporter ist NUR intern im Netzwerk 'monitoring' erreichbar:"
+echo "node-exporter is ONLY accessible internally in the 'monitoring' network:"
 echo "  http://node-exporter:9100"
 echo ""
-echo "Hinweis: In Grafana als Prometheus-Datenquelle eintragen:"
+echo "Note: Enter the following in Grafana as the Prometheus data source:"
 echo "  http://prometheus:9090"
 echo ""
-echo "Konfiguration liegt unter: ${CONFIG_DIR}"
-echo "Stack stoppen mit: cd ${CONFIG_DIR} && ${COMPOSE_CMD} down"
+echo "Configuration is located at: ${CONFIG_DIR}"
+echo "Stop the stack with: cd ${CONFIG_DIR} && ${COMPOSE_CMD} down"
 echo "============================================================"
