@@ -22,7 +22,7 @@ pwd:  admin
 
 password change will be required
 
-# Setup Dashboard
+## Setup Dashboard
 - go to: Connections>Data sources
 - Connection: http://prometheus:9090
 - save and test
