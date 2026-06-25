@@ -23,13 +23,11 @@ pwd:  admin
 password change will be required
 
 # Setup Dashboard
---------------------------------
 - go to: Connections>Data sources
 - Connection: http://prometheus:9090
 - save and test
 - test should be successful
--------------------------------
-go to: Dashboards
+- go to: Dashboards
 - New
 - Import
 - enter 1860 in search field
