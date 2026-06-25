@@ -1,4 +1,4 @@
-# Monitoring Setup
+# Monitoring-Stack
 
 Kleines Setup zum schnellen Start eines Monitoring-Stacks mit Grafana, Prometheus und node-exporter über Docker Compose.
 
@@ -12,4 +12,7 @@ Kleines Setup zum schnellen Start eines Monitoring-Stacks mit Grafana, Prometheu
 - Docker installiert
 - Docker Compose (entweder `docker compose` oder `docker-compose`)
 - Auf Windows: Script mit Git Bash oder WSL ausführen (Script ist ein bash-Skript).
+
+## Grafana Dashboard erstellen
+tba
 
